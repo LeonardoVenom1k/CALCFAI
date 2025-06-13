@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CALCFAI</title>
+    <style>
+        html,
+        body {
+            overflow: hidden;
+            height: 100%;
+        }
+
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body,
+        html {
+            height: 100%;
+            font-family: Arial, sans-serif;
+        }
+
+        .background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('/img/fundofai.jpg');
+            background-size: cover;
+            background-position: center;
+            filter: blur(8px);
+            z-index: -1;
+        }
+
+        .container {
+            background-color: rgba(0, 51, 102, 0.8);
+            max-width: 400px;
+            width: 90%;
+            margin: 50px auto;
+            padding: 30px 20px;
+            border-radius: 20px;
+            text-align: center;
+            color: white;
+        }
+
+        .logo {
+            width: 150px;
+            margin-bottom: 20px;
+        }
+
+        h1,
+        .resultado,
+        label {
+            text-shadow:
+                -1px -1px 0 #000,
+                1px -1px 0 #000,
+                -1px 1px 0 #000,
+                1px 1px 0 #000;
+        }
+
+        h1 {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        input[type="text"] {
+            width: 90%;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border: none;
+            font-size: 16px;
+            text-align: center;
+        }
+
+        .resultado {
+            font-size: 22px;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 20px 10px;
+                border-radius: 15px;
+            }
+
+            .logo {
+                width: 120px;
+            }
+
+            h1 {
+                font-size: 20px;
+            }
+
+            input[type="text"] {
+                font-size: 14px;
+            }
+
+            .resultado {
+                font-size: 18px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="background"></div>
+
+    <div class="container">
+        <img src="/img/logofai.jpg" alt="Logo" class="logo">
+        <h1>CALCULADORA<br>EX FINAL</h1>
+
+        <div>
+            <label for="nota1">Nota 1ºBimestre:</label><br>
+            <input type="text" id="nota1" placeholder="Digite a nota..."><br>
+
+            <label for="nota2">Nota 2ºBimestre:</label><br>
+            <input type="text" id="nota2" placeholder="Digite a nota..."><br>
+        </div>
+
+        <div class="resultado">
+            NOTA EX FINAL:<br>-- PONTOS
+        </div>
+    </div>
+
+    <script>
+        const nota1Input = document.getElementById('nota1');
+        const nota2Input = document.getElementById('nota2');
+        const resultadoDiv = document.querySelector('.resultado');
+
+        function calcularExFinal() {
+            const n1 = parseFloat(nota1Input.value.replace(',', '.'));
+            const n2 = parseFloat(nota2Input.value.replace(',', '.'));
+
+            if (isNaN(n1) || isNaN(n2)) {
+                resultadoDiv.innerHTML = 'NOTA EX FINAL:<br><span style="color:yellow;">Preencha as duas notas corretamente.</span>';
+                return;
+            }
+
+            const mediaBimestral = (n1 + n2) / 2;
+
+            // Aplicando a fórmula que você passou
+            // Nota necessária no EF = ((500 - (mediaBimestral * 6)) / 4)
+            const notaNecessaria = (500 - (mediaBimestral * 6)) / 4;
+
+            if (notaNecessaria > 100) {
+                resultadoDiv.innerHTML = 'NOTA EX FINAL:<br><span style="color:red;">Nota necessária maior que 100, impossível passar.</span>';
+            } else if (notaNecessaria <= 0) {
+                resultadoDiv.innerHTML = 'NOTA EX FINAL:<br><span style="color:lightgreen;">Você já está aprovado, nota necessária é 0.</span>';
+            } else {
+                resultadoDiv.innerHTML = `NOTA EX FINAL:<br><span style="color:#ffcc00;">Você precisa tirar pelo menos ${notaNecessaria.toFixed(2)} pontos no exame final.</span>`;
+            }
+        }
+
+        nota1Input.addEventListener('input', calcularExFinal);
+        nota2Input.addEventListener('input', calcularExFinal);
+    </script>
+
+
+</body>
+<footer style="
+    text-align: center;
+    font-size: 12px;
+    color: white;
+    background-color: rgba(0, 0, 0, 0.7);
+    padding: 15px 10px;
+    margin-top: 30px;
+    border-top: 1px solid #444;
+    text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+">
+    <p style="margin-bottom: 5px;">
+        Este site foi desenvolvido exclusivamente para fins acadêmicos, como parte das atividades da
+        <strong>FAI - CENTRO DE ENSINO SUPERIOR</strong>, localizada em Santa Rita do Sapucaí - MG.
+    </p>
+    <p style="margin-bottom: 5px;">
+        Endereço: Av. Antônio de Cássia, 472 - Jardim Santo Antônio, Santa Rita do Sapucaí - MG, 37537-348.
+    </p>
+    <p style="margin-bottom: 5px;">
+        Projeto sem fins lucrativos, sem finalidade comercial e com objetivo unicamente educativo.
+        Não reivindicamos direitos autorais sobre imagens ou conteúdos utilizados. Caso haja qualquer problema
+        relacionado a direitos, favor entrar em contato com a coordenação da instituição.
+    </p>
+    <p>
+        © 2025 | Projeto Educacional | Todos os direitos reservados aos autores originais dos materiais utilizados.
+    </p>
+</footer>
+
+</html>
